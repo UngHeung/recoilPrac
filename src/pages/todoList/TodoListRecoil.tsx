@@ -1,5 +1,5 @@
 import React from "react";
-import TodoItemCreator from "./TodoItemCreator";
+import TodoItemCreator, { todoListProps } from "./TodoItemCreator";
 import TodoItem from "./TodoItem";
 import { todoListState } from "../../atom/todoListAtom";
 import { useRecoilValue } from "recoil";
@@ -11,9 +11,9 @@ const TodoListRecoil = () => {
     <>
       <TodoItemCreator />
 
-      {todoList.map((todoItem) => {
-        // <TodoItem key={todoItem.id} item={todoItem} />;
-      })}
+      {todoList.map((todoItem: todoListProps, idx: number) => (
+        <TodoItem key={`todoItem_${idx}`} item={todoItem} />
+      ))}
     </>
   );
 };
