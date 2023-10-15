@@ -29,11 +29,29 @@ export const filteredTodoListState = selector({
 
     switch (filter) {
       case "Show Completed":
-        return list.filter((item: todoListProps) => item.isComplete);
+        return list?.filter((item: todoListProps) => item?.isComplete);
       case "Show Uncompleted":
-        return list.filter((item: todoListProps) => !item.isComplete);
+        return list?.filter((item: todoListProps) => !item?.isComplete);
       default:
         return list;
     }
+  },
+});
+
+export const todoListStatsState = selector({
+  key: "todoListStatsState",
+  get: ({ get }) => {
+    const todoList = get(todoListState);
+    const totalNum = todoList.length;
+    const totalCompletedNum = (todoList?.filter((item: todoListProps) => item?.isComplete)).length;
+    const totalUncompletedNum = totalNum - totalCompletedNum;
+    const percentCompleted = totalNum === 0 ? 0 : totalCompletedNum / totalNum;
+
+    return {
+      totalNum,
+      totalCompletedNum,
+      totalUncompletedNum,
+      percentCompleted,
+    };
   },
 });
