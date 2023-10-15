@@ -1,7 +1,7 @@
 import React from "react";
-import "./App.css";
-import TodoListRecoil from "./pages/TodoListRecoil";
+import TodoListRecoil from "./pages/todoList/TodoListRecoil";
 import { RecoilRoot } from "recoil";
+import "./App.css";
 
 const App = () => {
   return (
