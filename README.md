@@ -41,6 +41,7 @@ export const todoIndexState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+// recoil state # todoList
 export const todoListState = atom({
   key: "todoListState",
   default: [] as todoListProps[],
@@ -113,6 +114,37 @@ const deleteItem = () => {
   const newList = todoList.filter((todo: todoListProps) => todo.id !== item.id);
   setTodoList(newList);
 };
+```
+
+### 셀렉터(아이템 필터링, 통계)
+
+아이템 필터링 기능을 위해 `selector`를 사용
+selector는 state(# todoList)의 파생된 상태(필터링 된 목록 또는 필터링 된 항목 수를 새롭게 생성 및 파생)
+
+```ts
+// recoil state # todoList filter
+export const todoListFilterState = atom({
+  key: "todoListFilterState",
+  default: "Show All",
+});
+
+// recoil selector # todoList, todoList filter
+export const filteredTodoListState = selector({
+  key: "filteredTodoListState",
+  get: ({ get }) => {
+    // todoList filter
+    const filter = get(todoListFilterState);
+    // todoList
+    const list = get(todoListState);
+
+    switch (filter) {
+      case "Show Completed":
+        return list.filter((item: todoListProps) => item.isComplete);
+      case "Show Uncomplete":
+        return list.filter((item: todoListProps) => !item.isComplete);
+    }
+  },
+});
 ```
 
 ---
