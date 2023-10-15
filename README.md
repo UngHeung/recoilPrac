@@ -103,7 +103,7 @@ const editItemText = (e: React.ChangeEvent<HTMLInputElement>) => {
 const toggleItemCompletion = () => {
   const newList = todoList.map(
     (todo: todoListProps) => (todo.id === item.id ? { ...todo, isComplete: !item.isComplete } : todo)
-    // 상태가 제대로 업데이트 되도록 하기 위해 onChange 이벤트 타겟을 사용하지 않고 item의 상태를 사용한다.
+    // 상태가 제대로 업데이트 되도록 하기 위해 useState를 사용하지 않고 item의 상태를 사용한다.
   );
   setTodoList(newList);
 };
